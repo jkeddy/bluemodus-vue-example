@@ -4,7 +4,10 @@
 export default {
   data() {
     return {
-      productName: 'Name'
+      productName: 'Name',
+      productModel: '123',
+      productDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.',
+      productImage: 'https://via.placeholder.com/700x700'
     }
   },
   methods: {
@@ -13,7 +16,7 @@ export default {
     }
   },
   mounted() {
-    console.log(`The initial count is ${this.count}.`)
+
   }
 }
 </script>
@@ -24,17 +27,17 @@ section.product-listing.js-product-listing
       div.product-carousel
           div.product-carousel__wrapper
               - for (var x = 0; x < 3; x++)
-                  img.product-carousel__image.product-carousel__image--hero(src='https://via.placeholder.com/700x700')
+                  img.product-carousel__image.product-carousel__image--hero(v-bind:src="productImage")
               btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--prev.js-product-carousel-prev Prev
               btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--next.js-product-carousel-next Next
               btn.product-carousel__btn.product-carousel__btn--enlarge.js-product-carousel-enlarge Enlarge
           div.product-carousel__thumbnails
-              img.product-carousel__image.product-carousel__image--thumbnail(src='https://via.placeholder.com/700x700')
+              img.product-carousel__image.product-carousel__image--thumbnail(v-bind:src="productImage")
   div.product-listing__info
-      h2.product-listing__heading Heading
+      h2.product-listing__heading {{productName}}
       p.product-listing__model Model Number: 
-          strong 123456
-      p.product-listing__description Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.
+          strong {{productModel}}
+      p.product-listing__description {{productDesc}}
       div.product-listing__options
           p.product-listing__option-name Color/Finish 
               strong Black
