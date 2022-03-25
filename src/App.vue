@@ -4,18 +4,52 @@
 export default {
   data() {
     return {
-      productName: 'Name',
-      productModel: '123',
-      productDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.',
-      productImage: 'https://via.placeholder.com/700x700'
+        products: [
+            {
+                productName: 'Name1',
+                productModel: '123',
+                productDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.',
+                productImage: [ 
+                    'https://via.placeholder.com/700x700/0000FF/808080?text=product+photo1',
+                    'https://via.placeholder.com/700x700/0000FF/808080?text=product+photo2'
+                ]
+            },
+            {
+                productName: 'Name2',
+                productModel: '123',
+                productDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.',
+                productImage: [ 
+                    'https://via.placeholder.com/700x700/0000FF/808080?text=product+photo1',
+                    'https://via.placeholder.com/700x700/0000FF/808080?text=product+photo2'
+                ]
+            }
+        ]
     }
   },
   methods: {
     carouselCycle() {
       
+    },
+    galleryModal() {
+
     }
   },
+  beforeCreate() {
+
+  },
+  created() {
+
+  },
+  beforeMount() {
+
+  },
   mounted() {
+
+  },
+  beforeUnmount() {
+
+  },
+  umounted() {
 
   }
 }
@@ -24,28 +58,28 @@ export default {
 <template lang="pug">
 section.product-listing.js-product-listing
   div.product-listing__media
-      div.product-carousel
-          div.product-carousel__wrapper
+      div.product-gallery
+          div.product-carousel
               - for (var x = 0; x < 3; x++)
-                  img.product-carousel__image.product-carousel__image--hero(v-bind:src="productImage")
+                  img.product-gallery__image.product-gallery__image--hero(v-bind:src="products[0].productImage[0]")
               btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--prev.js-product-carousel-prev Prev
               btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--next.js-product-carousel-next Next
               btn.product-carousel__btn.product-carousel__btn--enlarge.js-product-carousel-enlarge Enlarge
-          div.product-carousel__thumbnails
-              img.product-carousel__image.product-carousel__image--thumbnail(v-bind:src="productImage")
+          div.product-gallery__thumbnails
+              img.product-gallery__image.product-gallery__image--thumbnail(v-bind:src="products[0].productImage[0]")
   div.product-listing__info
-      h2.product-listing__heading {{productName}}
+      h2.product-listing__heading {{products[0].productName}}
       p.product-listing__model Model Number: 
-          strong {{productModel}}
-      p.product-listing__description {{productDesc}}
-      div.product-listing__options
-          p.product-listing__option-name Color/Finish 
+          strong {{products[0].productModel}}
+      p.product-listing__description {{products[0].productDesc}}
+      div.product-options
+          p.product-options__name Color/Finish 
               strong Black
           span.product-listing__option
-          p.product-listing__option-name Size/Width 
+          p.product-options__name Size/Width 
               strong 32
           span.product-listing__option
-          p.product-listing__option-name Some Third Thing 
+          p.product-options__name Some Third Thing 
               strong 7
           span.product-listing__option
     
@@ -69,24 +103,17 @@ section.product-listing.js-product-listing
     &__description {
 
     }
-    &__options {
-
-    }
-    &__option {
-        // fix this
-        &-name{
-
-        }
-    }
-
 }
-.product-carousel {
-    max-width: 700px;
-    &__wrapper {
-        max-height: 700px;
-        overflow: hidden;
-        position: relative;
+.product-options {
+    &__name {
+
     }
+    &__option{
+
+    }
+}
+.product-gallery {
+    max-width: 700px;
     &__image {
         margin: 0;
         max-width: 100%;
@@ -98,7 +125,16 @@ section.product-listing.js-product-listing
             max-width: 50px;
         }
     }
-    &__btn {
+    &__thumbnails {
+
+    }
+    
+}
+.product-carousel {
+        max-height: 700px;
+        overflow: hidden;
+        position: relative;
+        &__btn {
         background: rgba(0,0,0,.25);
         color: #fff;
         display: block;
@@ -123,9 +159,6 @@ section.product-listing.js-product-listing
             bottom: 5%;
             right: 5%;
         }
-    }
-    &__thumbnails {
-
     }
 }
 </style>
