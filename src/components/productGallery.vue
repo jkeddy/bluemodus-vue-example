@@ -75,13 +75,21 @@ export default {
     methods: {
         carouselCycle(dir) {
             // move carousel in direction provided. highlight thumbnail
+            const carouselEntries = this.$refs.carousel.children
+            const thumbnailsEntries = this.$refs.thumbnails.children
+
+            // I cant believe that worked
             if(dir === 'next'){
                 //const activeSlide 
                 this.currentSlide++
+                this.carouselIndex(this.currentSlide++)
+                
                 console.log('next')
             }
             else{
                 this.currentSlide--
+                this.carouselIndex(this.currentSlide--)
+                
                 console.log('prev')
             }
             console.log(this.currentSlide)
@@ -89,19 +97,21 @@ export default {
         carouselIndex(val) {
             // take value change carousel position add highlight
             //terrible syntax
-            const carouselEntries = this.$refs.carousel.children
-            const thumbnailsEntries = this.$refs.thumbnails.children
-            
-            for (const i of carouselEntries) {
-                i.classList.remove('product-gallery__image--active')
+            if(val != this.currentSlide) {
+                const carouselEntries = this.$refs.carousel.children
+                const thumbnailsEntries = this.$refs.thumbnails.children
+                this.currentSlide = val
+                for (const i of carouselEntries) {
+                    i.classList.remove('product-gallery__image--active')
+                }
+                carouselEntries.item(val).classList.add('product-gallery__image--active')
+                for (const i of thumbnailsEntries) {
+                    i.classList.remove('product-gallery__image--thumbnail-active')
+                }
+                thumbnailsEntries.item(val).classList.add('product-gallery__image--thumbnail-active')
+                console.log(this)
+                //console.log(val)
             }
-            carouselEntries.item(val).classList.add('product-gallery__image--active')
-            for (const i of thumbnailsEntries) {
-                i.classList.remove('product-gallery__image--thumbnail-active')
-            }
-            thumbnailsEntries.item(val).classList.add('product-gallery__image--thumbnail-active')
-            console.log(this)
-            //console.log(val)
         },
         galleryModal() {
             //factor out to event emitter
