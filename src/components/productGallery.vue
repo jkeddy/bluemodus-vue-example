@@ -22,11 +22,11 @@ div.product-gallery(
         v-if="isModalActive"
         @click="galleryModal()"
     ) Close
-    div.product-gallery__thumbnails
+    div.product-gallery__thumbnails(ref="thumbnails")
         img.product-gallery__image.product-gallery__image--thumbnail(
-            v-for="index in maxVisibleImages"
-            @click="carouselVal(`${index}`)"
-            v-bind:src="productImage[index]"
+            v-for="index in thumbnailRender"
+            @click="carouselIndex(`${index}`)"
+            v-bind:src="productImage[index-1]"
             :id="`t${index}`"
         )
         span.product-gallery__image.product-gallery__image--thumbnail(
@@ -40,7 +40,7 @@ div.product-gallery(
 export default {
     data() {
         return {
-            currentSlide: 1,
+            currentSlide: 0,
             isModalActive: false,
             maxVisibleImages: 6
         }
@@ -62,6 +62,10 @@ export default {
         },
         thumbnailExtra() {
             return this.totalSlides - this.maxVisibleImages
+        },
+        thumbnailRender() {
+            // not zeroth'd in loop
+            return this.totalSlides > this.maxVisibleImages ? 6 : this.totalSlides 
         }
     },
     props: {
@@ -82,9 +86,10 @@ export default {
             }
             console.log(this.currentSlide)
         },
-        carouselIndex(val) {
+        carouselIndex() {
             // take value change carousel position add highlight
-            console.log(val)
+            console.log(this)
+            //console.log(val)
         },
         galleryModal() {
             //factor out to event emitter
@@ -92,11 +97,16 @@ export default {
         }
     },
     mounted() {
-        console.log(this.totalSlides)
         // be nice to add optional index here
+        // get active slide array pos
         const carouselInit = this.$refs.carousel
+        const thumbnailsInit = this.$refs.thumbnails
         if(carouselInit.hasChildNodes){
             carouselInit.firstElementChild.classList.add('product-gallery__image--active')
+        }
+        if (thumbnailsInit.hasChildNodes) {
+            // terrible class name
+            thumbnailsInit.firstElementChild.classList.add('product-gallery__image--thumbnail-active')
         }
     }
     
@@ -128,6 +138,9 @@ export default {
             height: 80px;
             text-align: center;
             vertical-align: middle;
+            &-active{
+                border: 3px solid green;
+            }
         }
     }
     &--modal {
