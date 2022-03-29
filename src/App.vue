@@ -19,17 +19,30 @@ export default {
                         "https://via.placeholder.com/700x700/00ffFF/808080?text=product+photo1",
                         "https://via.placeholder.com/700x700/ff00FF/808080?text=product+photo2",
                         "https://via.placeholder.com/700x700/000000/808080?text=product+photo3",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo4"
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo4",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo5",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo6",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7"
                     ]
                 },
                 {
                     productType: 'Type2',
                     productName: "Name2",
                     productModel: "456",
-                    productDesc: "1111Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
+                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
                     productImage: [
                         "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo3",
                         "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo4"
+                    ]
+                },
+                {
+                    productType: 'Type3',
+                    productName: "Name3",
+                    productModel: "678",
+                    productDesc: "In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
+                    productImage: [
+                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo6",
+                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo7"
                     ]
                 }
             ],
