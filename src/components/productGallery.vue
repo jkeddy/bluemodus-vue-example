@@ -87,6 +87,7 @@ export default {
             console.log(val)
         },
         galleryModal() {
+            //factor out to event emitter
             this.isModalActive = !this.isModalActive
         }
     },
@@ -118,7 +119,15 @@ export default {
             opacity: 1;
         }
         &--thumbnail {
-            max-width: 50px;
+            // this is terrible and hacky!!!!
+            background-color: #000;
+            color: #fff;
+            display: inline-block;
+            line-height: 5;
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            vertical-align: middle;
         }
     }
     &--modal {
@@ -130,7 +139,9 @@ export default {
         margin: auto;
     }
     &__thumbnails {
-
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
     
 }
@@ -162,7 +173,7 @@ export default {
         &--enlarge {
             color: black;
             background: none;
-            bottom: 5%;
+            bottom: 10%;
             right: 5%;
         }
     }
