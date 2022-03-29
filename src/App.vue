@@ -22,6 +22,8 @@ export default {
                         "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo4",
                         "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo5",
                         "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo6",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7",
                         "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7"
                     ]
                 },
@@ -78,7 +80,7 @@ export default {
 <template lang="pug">
 section.product-listing.js-product-listing
   div.product-listing__media
-      <ProductGallery v-bind:productImage="products[currentProduct].productImage"/>
+      <ProductGallery v-bind="{productImage:products[currentProduct].productImage, totalSlides: products[currentProduct].productImage.length}"/>
   div.product-listing__info
       h2.product-listing__heading {{products[currentProduct].productName}}
       p.product-listing__model Model Number: 

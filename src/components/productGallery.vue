@@ -2,12 +2,11 @@
 div.product-gallery(
         :class="{'product-gallery--modal': isModalActive}"
     )
-    div.product-carousel
+    div.product-carousel(ref="carousel")
         img.product-gallery__image.product-gallery__image--hero(
             v-for="(imageUrl,index) in productImage"
             v-bind:src="imageUrl"
             :id="`s${index}`"
-            :class="{'product-gallery__image--active': index === 0}"
         )
     btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--prev.js-product-carousel-prev(
         @click="carouselCycle('prev')"
@@ -24,12 +23,16 @@ div.product-gallery(
         @click="galleryModal()"
     ) Close
     div.product-gallery__thumbnails
-    img.product-gallery__image.product-gallery__image--thumbnail(
-        v-for="imageUrl in productImage"
-        @click="carouselVal(`${index}`)"
-        v-bind:src="imageUrl"
-        :id="`t${index}`"
-    )
+        img.product-gallery__image.product-gallery__image--thumbnail(
+            v-for="index in maxVisibleImages"
+            @click="carouselVal(`${index}`)"
+            v-bind:src="productImage[index]"
+            :id="`t${index}`"
+        )
+        span.product-gallery__image.product-gallery__image--thumbnail(
+            v-if="thumbnailMax"
+            @click="galleryModal()"
+        ) {{thumbnailExtra}}
 </template>
 <script>
 //import { defineComponent } from '@vue/composition-api'
@@ -38,8 +41,8 @@ export default {
     data() {
         return {
             currentSlide: 1,
-            totalSlides: this.productImage.length,
-            isModalActive: false
+            isModalActive: false,
+            maxVisibleImages: 6
         }
     },
     computed: {
@@ -55,11 +58,15 @@ export default {
             return this.activeSlides.indexOf(this._uid) >= 0;
         },
         thumbnailMax() {
-            return this.totalSlides > 6
+            return this.totalSlides >= this.maxVisibleImages
+        },
+        thumbnailExtra() {
+            return this.totalSlides - this.maxVisibleImages
         }
     },
     props: {
-        productImage: Array
+        productImage: Array,
+        totalSlides: Number
     },
     methods: {
         carouselCycle(dir) {
@@ -82,7 +89,16 @@ export default {
         galleryModal() {
             this.isModalActive = !this.isModalActive
         }
+    },
+    mounted() {
+        console.log(this.totalSlides)
+        // be nice to add optional index here
+        const carouselInit = this.$refs.carousel
+        if(carouselInit.hasChildNodes){
+            carouselInit.firstElementChild.classList.add('product-gallery__image--active')
+        }
     }
+    
 }
 </script>
 
