@@ -10,6 +10,7 @@ section.product-listing.js-product-listing
 <script>
 import ProductGallery from "./components/productGallery.vue"
 import ProductInfo from "./components/productInfo.vue"
+import ProductData from "./assets/data.js"
 
 export default {
     components: { 
@@ -19,46 +20,8 @@ export default {
     data() {
         return {
             currentProduct: 0,
-            products: [
-                {
-                    productType: 'Type1',
-                    productName: "Name1",
-                    productModel: "123",
-                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
-                    productImage: [
-                        "https://via.placeholder.com/700x700/00ffFF/808080?text=product+photo1",
-                        "https://via.placeholder.com/700x700/ff00FF/808080?text=product+photo2",
-                        "https://via.placeholder.com/700x700/000000/808080?text=product+photo3",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo4",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo5",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo6",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo8",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo9"
-                    ]
-                },
-                {
-                    productType: 'Type2',
-                    productName: "Name2",
-                    productModel: "456",
-                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
-                    productImage: [
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo3",
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo4"
-                    ]
-                },
-                {
-                    productType: 'Type3',
-                    productName: "Name3",
-                    productModel: "678",
-                    productDesc: "In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
-                    productImage: [
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo6",
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo7"
-                    ]
-                }
-            ],
-            currentPath: window.location.pathname
+            products: [],
+            currentPath: window.location.pathname,
         }
     },
     methods: {
@@ -70,8 +33,15 @@ export default {
     beforeCreate() {
     },
     created() {
+        ProductData.then((response) => response.json())
+        .then((json) => {
+            json.products.forEach(e => {
+                this.products.push(e)
+            })
+        })
     },
     beforeMount() {
+        
     },
     mounted() {
         // loading existing product set if model number in url
