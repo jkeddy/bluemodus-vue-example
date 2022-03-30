@@ -92,8 +92,14 @@ export default {
     beforeMount() {
     },
     mounted() {
-        //add mounted product val
-        console.log(`current path: ${this.currentPath}`)
+        // loading existing product set if model number in url
+        for (let i = 0; i < this.products.length; i++) {
+            const e = this.products[i]
+            if(e.productModel === this.currentPath.slice(1)) {
+                this.changeProduct(i)
+                break
+            }
+        }
     },
     beforeUnmount() {
     },
