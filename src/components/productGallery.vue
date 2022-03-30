@@ -30,7 +30,7 @@ div.product-gallery(
             :id="`t${index}`"
         )
         span.product-gallery__image.product-gallery__image--thumbnail(
-            v-if="thumbnailMax"
+            v-if="thumbnailMax && !isModalActive"
             @click="galleryModal()"
         ) {{thumbnailExtra}}
 </template>
@@ -73,6 +73,7 @@ export default {
         totalSlides: Number
     },
     methods: {
+        // Fix zeroth issue present in all cycling
         carouselCycle(dir) {
             // move carousel in direction provided. highlight thumbnail
             const carouselEntries = this.$refs.carousel.children.length
@@ -92,11 +93,12 @@ export default {
                 }
             }
             else{
-                 if(!(this.currentSlide <= 0)){
-                    const nextSlide = this.currentSlide--
-                    this.carouselIndex(nextSlide)
-                    this.currentSlide--
+                 if(!(this.currentSlide <= 1)){
+                    //const nextSlide = this.currentSlide--
+                    //this.carouselIndex(nextSlide)
+                    //this.currentSlide--
                     console.log('backwards')
+                    console.log(`current slide: ${this.currentSlide}`)
                 }else {
                     console.log('end')
                     this.carouselIndex(carouselEntries-1)
@@ -153,7 +155,6 @@ export default {
     updated() {
         this.initGallery()
     }
-    
 }
 </script>
 
