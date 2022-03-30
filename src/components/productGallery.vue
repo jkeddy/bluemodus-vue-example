@@ -75,63 +75,83 @@ export default {
     methods: {
         carouselCycle(dir) {
             // move carousel in direction provided. highlight thumbnail
-            const carouselEntries = this.$refs.carousel.children
+            const carouselEntries = this.$refs.carousel.children.length
             const thumbnailsEntries = this.$refs.thumbnails.children
-
+            //let nextSlide
             // I cant believe that worked
             if(dir === 'next'){
-                //const activeSlide 
-                this.currentSlide++
-                this.carouselIndex(this.currentSlide++)
-                
-                console.log('next')
+                if(!(this.currentSlide >= carouselEntries)){
+                   const nextSlide = this.currentSlide++
+                    this.carouselIndex(nextSlide)
+                    this.currentSlide++
+                    console.log('forward')
+                }else {
+                    console.log('start')
+                    this.carouselIndex(0)
+                    this.currentSlide = 1
+                }
             }
             else{
-                this.currentSlide--
-                this.carouselIndex(this.currentSlide--)
-                
-                console.log('prev')
+                 if(!(this.currentSlide <= 0)){
+                    const nextSlide = this.currentSlide--
+                    this.carouselIndex(nextSlide)
+                    this.currentSlide--
+                    console.log('backwards')
+                }else {
+                    console.log('end')
+                    this.carouselIndex(carouselEntries-1)
+                    this.currentSlide = carouselEntries-1
+                }
             }
-            console.log(this.currentSlide)
+            console.log(`current slide val3: ${this.currentSlide}`)
         },
         carouselIndex(val) {
             // take value change carousel position add highlight
             //terrible syntax
-            if(val != this.currentSlide) {
+            //if(val != this.currentSlide) {
                 const carouselEntries = this.$refs.carousel.children
                 const thumbnailsEntries = this.$refs.thumbnails.children
-                this.currentSlide = val
+                if(val != this.currentSlide) this.currentSlide = val
+                console.log(`index val: ${val}`)
                 for (const i of carouselEntries) {
                     i.classList.remove('product-gallery__image--active')
                 }
                 carouselEntries.item(val).classList.add('product-gallery__image--active')
-                for (const i of thumbnailsEntries) {
-                    i.classList.remove('product-gallery__image--thumbnail-active')
+                if(val < thumbnailsEntries.length) {
+                    for (const i of thumbnailsEntries) {
+                        i.classList.remove('product-gallery__image--thumbnail-active')
+                    }
+                    thumbnailsEntries.item(val).classList.add('product-gallery__image--thumbnail-active')
                 }
-                thumbnailsEntries.item(val).classList.add('product-gallery__image--thumbnail-active')
-                console.log(this)
-                //console.log(val)
-            }
+                //console.log(this)
+                
+            //}
         },
         galleryModal() {
             //factor out to event emitter
             this.isModalActive = !this.isModalActive
+        },
+        initGallery() {
+            // be nice to add optional index here
+            // get active slide array pos
+            const startIndex = 1
+            const carouselInit = this.$refs.carousel
+            const thumbnailsInit = this.$refs.thumbnails
+            if(carouselInit.hasChildNodes){
+                carouselInit.firstElementChild.classList.add('product-gallery__image--active')
+            }
+            if (thumbnailsInit.hasChildNodes) {
+                // terrible class name
+                thumbnailsInit.firstElementChild.classList.add('product-gallery__image--thumbnail-active')
+            }
+            this.currentSlide = startIndex
         }
     },
     mounted() {
-        // be nice to add optional index here
-        // get active slide array pos
-        const startIndex = 1
-        const carouselInit = this.$refs.carousel
-        const thumbnailsInit = this.$refs.thumbnails
-        if(carouselInit.hasChildNodes){
-            carouselInit.firstElementChild.classList.add('product-gallery__image--active')
-        }
-        if (thumbnailsInit.hasChildNodes) {
-            // terrible class name
-            thumbnailsInit.firstElementChild.classList.add('product-gallery__image--thumbnail-active')
-        }
-        this.currentSlide = startIndex
+        this.initGallery()
+    },
+    updated() {
+        this.initGallery()
     }
     
 }
