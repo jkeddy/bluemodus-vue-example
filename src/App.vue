@@ -1,82 +1,3 @@
-<script>
-import ProductGallery from "./components/productGallery.vue"
-//import ProductListing from './components/productListing.vue'
-
-export default {
-    components: { 
-        ProductGallery 
-    },
-    data() {
-        return {
-            currentProduct: 0,
-            products: [
-                {
-                    productType: 'Type1',
-                    productName: "Name1",
-                    productModel: "123",
-                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
-                    productImage: [
-                        "https://via.placeholder.com/700x700/00ffFF/808080?text=product+photo1",
-                        "https://via.placeholder.com/700x700/ff00FF/808080?text=product+photo2",
-                        "https://via.placeholder.com/700x700/000000/808080?text=product+photo3",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo4",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo5",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo6",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7",
-                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7"
-                    ]
-                },
-                {
-                    productType: 'Type2',
-                    productName: "Name2",
-                    productModel: "456",
-                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
-                    productImage: [
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo3",
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo4"
-                    ]
-                },
-                {
-                    productType: 'Type3',
-                    productName: "Name3",
-                    productModel: "678",
-                    productDesc: "In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
-                    productImage: [
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo6",
-                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo7"
-                    ]
-                }
-            ],
-            computed: {
-                // a computed getter
-                productsHasLength() {
-                    // `this` points to the component instance
-                    return this.productImage.length;
-                }
-            }
-        };
-    },
-    methods: {
-        changeProduct(val) {
-            this.currentProduct = val
-        }
-    },
-    beforeCreate() {
-    },
-    created() {
-    },
-    beforeMount() {
-    },
-    mounted() {
-    },
-    beforeUnmount() {
-    },
-    umounted() {
-    }
-}
-</script>
-
 <template lang="pug">
 section.product-listing.js-product-listing
   div.product-listing__media
@@ -103,6 +24,83 @@ section.product-listing.js-product-listing
           span.product-listing__option
     
 </template>
+
+<script>
+import ProductGallery from "./components/productGallery.vue"
+//import ProductListing from './components/productListing.vue'
+
+export default {
+    components: { 
+        ProductGallery 
+    },
+    data() {
+        return {
+            currentProduct: 0,
+            products: [
+                {
+                    productType: 'Type1',
+                    productName: "Name1",
+                    productModel: "123",
+                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
+                    productImage: [
+                        "https://via.placeholder.com/700x700/00ffFF/808080?text=product+photo1",
+                        "https://via.placeholder.com/700x700/ff00FF/808080?text=product+photo2",
+                        "https://via.placeholder.com/700x700/000000/808080?text=product+photo3",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo4",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo5",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo6",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo7",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo8",
+                        "https://via.placeholder.com/700x700/00aabb/808080?text=product+photo9"
+                    ]
+                },
+                {
+                    productType: 'Type2',
+                    productName: "Name2",
+                    productModel: "456",
+                    productDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
+                    productImage: [
+                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo3",
+                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo4"
+                    ]
+                },
+                {
+                    productType: 'Type3',
+                    productName: "Name3",
+                    productModel: "678",
+                    productDesc: "In nec viverra dui. Nunc vel imperdiet ex. Quisque ut dapibus massa. Pellentesque sollicitudin ipsum et elit iaculis, ultricies egestas quam gravida. Sed quis enim leo. Aliquam iaculis sollicitudin ipsum, ut vestibulum arcu tristique id. Praesent pretium eros leo.",
+                    productImage: [
+                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo6",
+                        "https://via.placeholder.com/700x700/0000FF/808080?text=product+photo7"
+                    ]
+                }
+            ],
+            currentPath: window.location.pathname
+        }
+    },
+    methods: {
+        changeProduct(val) {
+            this.currentProduct = val
+            history.replaceState(null,'',this.products[val].productModel)
+            console.log(`val: ${this.currentPath}`)
+        }
+    },
+    beforeCreate() {
+    },
+    created() {
+    },
+    beforeMount() {
+    },
+    mounted() {
+        //add mounted product val
+        console.log(`current path: ${this.currentPath}`)
+    },
+    beforeUnmount() {
+    },
+    umounted() {
+    }
+}
+</script>
 <style lang="scss">
 .product-listing {
     display: flex;
