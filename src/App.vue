@@ -1,37 +1,20 @@
 <template lang="pug">
 section.product-listing.js-product-listing
-  div.product-listing__media
-      <ProductGallery v-bind="{productImage:products[currentProduct].productImage, totalSlides: products[currentProduct].productImage.length}"/>
-  div.product-listing__info
-      h2.product-listing__heading {{products[currentProduct].productName}}
-      p.product-listing__model Model Number: 
-          strong {{products[currentProduct].productModel}}
-      p.product-listing__description {{products[currentProduct].productDesc}}
-      div.product-options
-          p.product-options__name Color/Finish 
-                strong {{products[currentProduct].productType}} 
-                <br>
-                btn.product-options__type(v-for="(product,index) in products"
-                  @click="changeProduct(`${index}`)"
-                  v-bind:data-product-type="`${index}`"
-                )
-          span.product-listing__option
-          p.product-options__name Size/Width 
-              strong 32
-          span.product-listing__option
-          p.product-options__name Some Third Thing 
-              strong 7
-          span.product-listing__option
+    div.product-listing__media
+        <ProductGallery v-bind="{productImage:products[currentProduct].productImage, totalSlides: products[currentProduct].productImage.length}" />
+
+    <ProductInfo v-bind="{productInfo:products[currentProduct], productCount: products.length}" />
     
 </template>
 
 <script>
 import ProductGallery from "./components/productGallery.vue"
-//import ProductListing from './components/productListing.vue'
+import ProductInfo from "./components/productInfo.vue"
 
 export default {
     components: { 
-        ProductGallery 
+        ProductGallery,
+        ProductInfo
     },
     data() {
         return {
@@ -82,7 +65,6 @@ export default {
         changeProduct(val) {
             this.currentProduct = val
             history.replaceState(null,'',this.products[val].productModel)
-            console.log(`val: ${this.currentPath}`)
         }
     },
     beforeCreate() {
@@ -131,21 +113,7 @@ export default {
 
     }
 }
-.product-options {
-    &__name {
 
-    }
-    &__option{
-
-    }
-    &__type {
-        background-color: black;
-        display: inline-block;
-        margin-right: 10px;
-        height: 20px;
-        width: 20px;
-    }
-}
 .visually-hidden {
     display: none;
 }
