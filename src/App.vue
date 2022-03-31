@@ -1,5 +1,5 @@
 <template lang="pug">
-section.product-listing.js-product-listing
+section.product-listing.js-product-listing(v-if="loaded")
     div.product-listing__media
         <ProductGallery v-bind="{productImage:products[currentProduct].productImage, totalSlides: products[currentProduct].productImage.length}" />
 
@@ -13,6 +13,7 @@ import ProductInfo from "./components/productInfo.vue"
 import ProductData from "./assets/data.js"
 
 export default {
+    name: 'app',
     components: { 
         ProductGallery,
         ProductInfo
@@ -22,6 +23,7 @@ export default {
             currentProduct: 0,
             products: [],
             currentPath: window.location.pathname,
+            loaded: false
         }
     },
     methods: {
@@ -38,6 +40,7 @@ export default {
             json.products.forEach(e => {
                 this.products.push(e)
             })
+            this.loaded = true
         })
     },
     beforeMount() {
