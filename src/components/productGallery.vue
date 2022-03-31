@@ -58,7 +58,7 @@ export default {
             return this.activeSlides.indexOf(this._uid) >= 0;
         },
         thumbnailMax() {
-            return this.totalSlides >= this.maxVisibleImages
+            return this.totalSlides > this.maxVisibleImages
         },
         thumbnailExtra() {
             return this.totalSlides - this.maxVisibleImages
