@@ -1,4 +1,5 @@
 <template lang="pug">
+div.product-gallery__scrim(v-if="isModalActive")
 div.product-gallery(
         :class="{'product-gallery--modal': isModalActive}"
     )
@@ -8,12 +9,6 @@ div.product-gallery(
             v-bind:src="imageUrl"
             :id="`s${index+1}`"
         )
-    btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--prev.js-product-carousel-prev(
-        @click="carouselCycle('prev')"
-    ) Prev
-    btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--next.js-product-carousel-next(
-        @click="carouselCycle('next')"
-    ) Next
     btn.product-carousel__btn.product-carousel__btn--enlarge.js-product-carousel-enlarge(
         @click="galleryModal()"
         :class="{'visually-hidden': isModalActive}"
@@ -22,7 +17,26 @@ div.product-gallery(
         v-if="isModalActive"
         @click="galleryModal()"
     ) Close
-    div.product-gallery__thumbnails(ref="thumbnails")
+    div.product-gallery__thumbnails.product-gallery__thumbnails--modal(
+        v-if="isModalActive && thumbnailMax" 
+        ref="thumbnails"
+    )
+        img.product-gallery__image.product-gallery__image--thumbnail(
+            v-for="index in this.totalSlides"
+            @click="carouselIndex(`${index-1}`)"
+            v-bind:src="productImage[index-1]"
+            :id="`t${index}`"
+        )
+        div.product-gallery--modal__controls
+            btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--prev.product-carousel__btn--modal(
+                @mousedown="thumbnailCycle($event, 'prev')"
+                @mouseup="thumbnailCycle($event, 'stop')"
+            ) ❮
+            btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--next.product-carousel__btn--modal(
+                @mousedown="thumbnailCycle($event, 'next')"
+                @mouseup="thumbnailCycle($event, 'stop')"
+            ) ❯
+    div.product-gallery__thumbnails(v-else ref="thumbnails")
         img.product-gallery__image.product-gallery__image--thumbnail(
             v-for="index in thumbnailRender"
             @click="carouselIndex(`${index-1}`)"
@@ -42,7 +56,8 @@ export default {
         return {
             currentSlide: 0,
             isModalActive: false,
-            maxVisibleImages: 6
+            maxVisibleImages: 6,
+            thumbnailScroll: false
         }
     },
     computed: {
@@ -133,6 +148,22 @@ export default {
             //factor out to event emitter
             this.isModalActive = !this.isModalActive
         },
+        thumbnailCycle(event,dir) {
+            const thumbnailContainer = event.target.parentElement.parentElement
+            const scrollVal = 30
+            if(!this.thumbnailScroll) {
+                if(dir === 'next'){
+                    this.thumbnailScroll = setInterval(() => thumbnailContainer.scrollLeft += scrollVal, 100)
+                }
+                else if(dir === 'prev') {
+                    this.thumbnailScroll = setInterval(() => thumbnailContainer.scrollLeft -= scrollVal, 100)
+                }
+            }
+            else {
+                clearInterval(this.thumbnailScroll)
+                this.thumbnailScroll = false
+            }
+        },
         initGallery() {
             // be nice to add optional index here
             // get active slide array pos
@@ -188,6 +219,11 @@ export default {
             }
         }
     }
+    &__thumbnails {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
     &--modal {
         position: fixed;
         left: 0;
@@ -195,11 +231,25 @@ export default {
         top: 0;
         bottom: 0;
         margin: auto;
-    }
-    &__thumbnails {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        &__controls{
+            margin: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 22%;
+        }
+        .product-gallery__thumbnails{
+            margin: auto;
+            max-width: 50%;
+            overflow: hidden;
+        }
+        .product-gallery__image{
+            &--thumbnail {
+                width: 45px;
+                height: 45px;
+                margin-right: 10px;
+            }
+        }
     }
     
 }
@@ -227,6 +277,9 @@ export default {
         }
         &--next {
             right: 0;
+        }
+        &--modal{
+            //bottom: 22%;
         }
         &--enlarge {
             color: black;
