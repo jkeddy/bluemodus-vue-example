@@ -9,6 +9,12 @@ div.product-gallery(
             v-bind:src="imageUrl"
             :id="`s${index+1}`"
         )
+    btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--prev.js-product-carousel-prev(
+        @click="carouselCycle('prev')"
+    ) Prev
+    btn.product-carousel__btn.product-carousel__btn--arrow.product-carousel__btn--next.js-product-carousel-next(
+        @click="carouselCycle('next')"
+    ) Next
     btn.product-carousel__btn.product-carousel__btn--enlarge.js-product-carousel-enlarge(
         @click="galleryModal()"
         :class="{'visually-hidden': isModalActive}"
